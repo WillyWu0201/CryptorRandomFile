@@ -2,10 +2,11 @@
 
 from __future__ import absolute_import, division, unicode_literals
 
+import os
 from Crypto.Cipher import AES
 
-_IV = 16 * '\x00'
-_KEY = 'Computer Security Assignment One'
+_IV = os.urandom(16)
+_KEY = 'Computer Security Assignment One' #32
 
 #generte random file
 # with open('output_file', 'wb') as fout:

@@ -2,9 +2,10 @@
 
 from __future__ import absolute_import, division, unicode_literals
 
+import os
 from Crypto.Cipher import AES
 
-_IV = 16 * '\x00'
+_IV = os.urandom(16)
 _KEY = 'Computer Security Assignment One'
 
 def aes_encrypt(data, key):
