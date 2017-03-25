@@ -3,15 +3,15 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import padding
 
-private_key = rsa.generate_private_key(
+_PRIVATEKEY = rsa.generate_private_key(
     public_exponent=65537,
     key_size=2048,
     backend=default_backend()
 )
-public_key = private_key.public_key()
+_PUBLICKEY = _PRIVATEKEY.public_key()
 
 def aes_encrypt(data):
-    ciphertext = public_key.encrypt(
+    ciphertext = _PUBLICKEY.encrypt(
         data,
         padding.OAEP(
             mgf=padding.MGF1(algorithm=hashes.SHA1()),
@@ -22,7 +22,7 @@ def aes_encrypt(data):
     return ciphertext
 
 def aes_decrypt(data):
-    plaintext = private_key.decrypt(
+    plaintext = _PRIVATEKEY.decrypt(
         data,
         padding.OAEP(
             mgf=padding.MGF1(algorithm=hashes.SHA1()),

@@ -19,7 +19,6 @@ def rsa_encrypt(data, key):
 
 # decrypted code below
 def rsa_decrypt(data, key):
-    # decrypted = key.decrypt(ast.literal_eval(str(data))) # this line need import ast
     decrypted = key.decrypt(data)
     return _Unpad(decrypted)
 
