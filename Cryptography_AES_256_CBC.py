@@ -21,7 +21,7 @@ def aes_decrypt(data):
     plaintext = _Unpad(decryptor.update(data))
     return plaintext
 
-encrypt = aes_encrypt("a secret CBC msg 1234567890-0987654321")
-print (encrypt)
-decrypt = aes_decrypt(encrypt)
-print (decrypt)
+# encrypt = aes_encrypt("a secret CBC msg 1234567890-0987654321")
+# print (encrypt)
+# decrypt = aes_decrypt(encrypt)
+# print (decrypt)
