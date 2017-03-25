@@ -6,10 +6,14 @@ _RANDOM = Random.new().read
 _KEY = RSA.generate(2048, _RANDOM)  # generate pub and priv key
 _PUBLICKEY = _KEY.publickey()  # pub key export for exchange
 
+_BlockSize = 16
+_Pad = lambda s: s + (_BlockSize - len(s) % _BlockSize) * chr(_BlockSize - len(s) % _BlockSize)
+_Unpad = lambda s : s[0:-ord(s[-1])]
 
-# message to encrypt is in the above line 'encrypt this message'
+
+# encrypted code below
 def rsa_encrypt(data, key):
-    encrypted = _PUBLICKEY.encrypt(str(data), 32)
+    encrypted = _PUBLICKEY.encrypt(_Pad(data), 32)
     return encrypted
 
 
@@ -17,10 +21,10 @@ def rsa_encrypt(data, key):
 def rsa_decrypt(data, key):
     # decrypted = key.decrypt(ast.literal_eval(str(data))) # this line need import ast
     decrypted = key.decrypt(data)
-    return decrypted
+    return _Unpad(decrypted)
 
 
-encrypt = rsa_encrypt('encrypt this RSA-2048', _KEY)
+encrypt = rsa_encrypt('encrypt this RSA-2048 222jfi32jfi32jf82v22222', _KEY)
 print (encrypt)
 decrypt = rsa_decrypt(encrypt, _KEY)
 print (decrypt)
