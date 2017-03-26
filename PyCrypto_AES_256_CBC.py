@@ -7,7 +7,7 @@ import random, string
 from Crypto.Cipher import AES
 
 _IV = os.urandom(16)
-_KEY = os.urandom(16)
+_KEY = os.urandom(32)
 _BlockSize = AES.block_size
 _Pad = lambda s: s + (_BlockSize - len(s) % _BlockSize) * chr(_BlockSize - len(s) % _BlockSize)
 _Unpad = lambda s : s[0:-ord(s[-1])]

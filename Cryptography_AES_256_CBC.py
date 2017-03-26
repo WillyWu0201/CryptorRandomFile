@@ -4,7 +4,7 @@ from cryptography.hazmat.backends import default_backend
 
 backend = default_backend()
 _IV = os.urandom(16)
-_KEY = os.urandom(16)
+_KEY = os.urandom(32)
 _BlockSize = 16
 _Pad = lambda s: s + (_BlockSize - len(s) % _BlockSize) * chr(_BlockSize - len(s) % _BlockSize)
 _Unpad = lambda s : s[0:-ord(s[-1])]

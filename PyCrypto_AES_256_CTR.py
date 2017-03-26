@@ -6,7 +6,7 @@ import os
 from Crypto.Cipher import AES
 
 _IV = os.urandom(16)
-_KEY = os.urandom(16)
+_KEY = os.urandom(32)
 _COUNTER = os.urandom(16)
 _BlockSize = AES.block_size
 _Pad = lambda s: s + (_BlockSize - len(s) % _BlockSize) * chr(_BlockSize - len(s) % _BlockSize)
