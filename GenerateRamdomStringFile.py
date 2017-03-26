@@ -7,3 +7,7 @@ def generateStringFile(size):
     file = open('RandomString.txt', 'wb')
     file.write(text)
 
+
+# _FILESIZE = 1024
+# generateStringFile(_FILESIZE)
+
