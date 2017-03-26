@@ -14,7 +14,7 @@ import Cryptography_AES_256_CTR
 # import Cryptography_RSA_2048
 import Cryptography_SHA_512
 
-_FILESIZE = 1024 * 1024 + 7
+_FILESIZE = 512 * 1024 * 1024 + 7
 
 print ('Generate Ramdom String File')
 start = time.time()

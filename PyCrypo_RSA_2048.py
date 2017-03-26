@@ -1,6 +1,8 @@
+import time
+import random, string
+
 from Crypto.PublicKey import RSA
 from Crypto import Random
-import random, string
 
 _RANDOM = Random.new().read
 _KEY = RSA.generate(2048, _RANDOM)  # generate pub and priv key
@@ -20,8 +22,11 @@ def rsa_decrypt(data):
     decrypted = _KEY.decrypt(data)
     return _Unpad(decrypted)
 
-# text = ''.join(random.choice(string.ascii_letters + string.digits) for x in range(1 * 1024 * 1024 + 7))
-# encrypt = rsa_encrypt(text)
-# print (encrypt)
-# decrypt = rsa_decrypt(encrypt)
-# print (decrypt)
+start = time.time()
+encrypt = rsa_encrypt(''.join(random.choice(string.ascii_letters + string.digits) for x in range(256 * 1024)))
+print (encrypt)
+decrypt = rsa_decrypt(encrypt)
+print (decrypt)
+end = time.time()
+elapsed = end - start
+print ('Time taken: ' + str(elapsed) + 'seconds.')
