@@ -360,9 +360,6 @@ def generateStringFile(size):
 print ('PyCrypto_AES_256_ECB')
 start = time.time()
 encrypt = PyCrypto_AES_256_ECB.aes_encrypt(plaintext)
-# print (encrypt)
-decrypt = PyCrypto_AES_256_ECB.aes_decrypt(encrypt)
-# print (decrypt)
 end = time.time()
 elapsed = end - start
 print ('Time taken: ' + str(elapsed) + 'seconds.')
@@ -371,18 +368,15 @@ print ('Time taken: ' + str(elapsed) + 'seconds.')
 print ('Cryptography_AES_256_ECB')
 start = time.time()
 encrypt = Cryptography_AES_256_ECB.aes_encrypt(plaintext)
-# print (encrypt)
-decrypt = Cryptography_AES_256_ECB.aes_decrypt(encrypt)
-# print (decrypt)
 end = time.time()
 elapsed = end - start
 print ('Time taken: ' + str(elapsed) + 'seconds.')
 \end{lstlisting}
 輸出的結果為
 \newline PyCrypto AES256 ECB
-Time taken: 16.6294379234seconds.
+Time taken: 8.11543488503seconds.
 \newline Cryptography AES256 ECB
-Time taken: 5.52893686295seconds.
+Time taken: 2.48533296585seconds.
 }
 
 \subsection{AES-256 CBC}
@@ -392,9 +386,6 @@ Time taken: 5.52893686295seconds.
 print ('PyCrypto_AES_256_CBC')
 start = time.time()
 encrypt = PyCrypto_AES_256_CBC.aes_encrypt(plaintext)
-# print (encrypt)
-decrypt = PyCrypto_AES_256_CBC.aes_decrypt(encrypt)
-# print (decrypt)
 end = time.time()
 elapsed = end - start
 print ('Time taken: ' + str(elapsed) + 'seconds.')
@@ -403,18 +394,15 @@ print ('Time taken: ' + str(elapsed) + 'seconds.')
 print ('Cryptography_AES_256_CBC')
 start = time.time()
 encrypt = Cryptography_AES_256_CBC.aes_encrypt(plaintext)
-# print (encrypt)
-decrypt = Cryptography_AES_256_CBC.aes_decrypt(encrypt)
-# print (decrypt)
 end = time.time()
 elapsed = end - start
 print ('Time taken: ' + str(elapsed) + 'seconds.')
 \end{lstlisting}
 輸出的結果為
 \newline PyCrypto AES256 CBC
-Time taken: 12.3291070461seconds.
+Time taken: 6.45398807526seconds.
 \newline Cryptography AES256 CBC
-Time taken: 4.53714203835seconds.
+Time taken: 3.81276679039seconds.
 }
 
 \subsection{AES-256 CTR}
@@ -424,9 +412,6 @@ Time taken: 4.53714203835seconds.
 print ('PyCrypto_AES_256_CTR')
 start = time.time()
 encrypt = PyCrypto_AES_256_CTR.aes_encrypt(plaintext)
-# print (encrypt)
-decrypt = PyCrypto_AES_256_CTR.aes_decrypt(encrypt)
-# print (decrypt)
 end = time.time()
 elapsed = end - start
 print ('Time taken: ' + str(elapsed) + 'seconds.')
@@ -435,18 +420,15 @@ print ('Time taken: ' + str(elapsed) + 'seconds.')
 print ('Cryptography_AES_256_CTR')
 start = time.time()
 encrypt = Cryptography_AES_256_CTR.aes_encrypt(plaintext)
-# print (encrypt)
-decrypt = Cryptography_AES_256_CTR.aes_decrypt(encrypt)
-# print (decrypt)
 end = time.time()
 elapsed = end - start
 print ('Time taken: ' + str(elapsed) + 'seconds.')
 \end{lstlisting}
 輸出的結果為
 \newline PyCrypto AES256 CTR
-Time taken: 31.6514780521seconds.
+Time taken: 21.1867408752seconds.
 \newline Cryptography AES256 CTR
-Time taken: 2.50827383995seconds.
+Time taken: 2.08338999748seconds.
 }
 
 \subsection{RSA-2048}
@@ -464,7 +446,6 @@ Time taken: 2.50827383995seconds.
 print ('PyCrypo_SHA_512')
 start = time.time()
 hash = PyCrypo_SHA_512.hashSHA512(plaintext)
-# print (hash)
 end = time.time()
 elapsed = end - start
 print ('Time taken: ' + str(elapsed) + 'seconds.')
@@ -473,7 +454,6 @@ print ('Time taken: ' + str(elapsed) + 'seconds.')
 print ('Cryptography_SHA_512')
 start = time.time()
 hash = Cryptography_SHA_512.hashSHA512(plaintext)
-# print (hash)
 end = time.time()
 elapsed = end - start
 print ('Time taken: ' + str(elapsed) + 'seconds.')	

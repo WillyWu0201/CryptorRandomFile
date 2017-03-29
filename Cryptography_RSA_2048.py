@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import time
 import random, string
 
@@ -13,34 +14,41 @@ _PRIVATEKEY = rsa.generate_private_key(
 )
 _PUBLICKEY = _PRIVATEKEY.public_key()
 
+_BlockSize = 16
+_Pad = lambda s: s + (_BlockSize - len(s) % _BlockSize) * chr(_BlockSize - len(s) % _BlockSize)
+_Unpad = lambda s : s[0:-ord(s[-1])]
+
 def rsa_encrypt(data):
     ciphertext = _PUBLICKEY.encrypt(
         data,
-        padding.OAEP(
-            mgf=padding.MGF1(algorithm=hashes.SHA1()),
-            algorithm=hashes.SHA1(),
-            label=None
-        )
+        # _Pad(data),
+        padding.PKCS1v15()
+        # padding.OAEP(
+        #     mgf=padding.MGF1(algorithm=hashes.SHA1()),
+        #     algorithm=hashes.SHA1(),
+        #     label=None
+        # )
     )
     return ciphertext
 
 def rsa_decrypt(data):
     plaintext = _PRIVATEKEY.decrypt(
         data,
-        padding.OAEP(
-            mgf=padding.MGF1(algorithm=hashes.SHA1()),
-            algorithm=hashes.SHA1(),
-            label=None
-        )
+        padding.PKCS1v15()
+        # padding.OAEP(
+        #     mgf=padding.MGF1(algorithm=hashes.SHA1()),
+        #     algorithm=hashes.SHA1(),
+        #     label=None
+        # )
     )
     return plaintext
 
-print ('start...')
 start = time.time()
-encrypt = rsa_encrypt(''.join(random.choice(string.ascii_letters + string.digits) for x in range(512)))
-print (encrypt)
-decrypt = rsa_decrypt(encrypt)
-print (decrypt)
+plaintext = ''.join(random.choice(string.ascii_letters + string.digits) for x in range(240))
+encrypt = rsa_encrypt(plaintext)
+# print (encrypt)
+# decrypt = rsa_decrypt(encrypt)
+# print (decrypt)
 end = time.time()
 elapsed = end - start
 print ('Time taken: ' + str(elapsed) + 'seconds.')
