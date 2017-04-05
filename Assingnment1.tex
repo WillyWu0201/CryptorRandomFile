@@ -12,6 +12,7 @@
 }
 \usepackage{fontspec} % 允許設定字體
 \usepackage{xeCJK} % 分開設置中英文字型
+\usepackage{url} % 使用url
 \setCJKmainfont{LiHei Pro} % 設定中文字型
 \setmainfont{Georgia} % 設定英文字型
 \setromanfont{Georgia} % 字型
@@ -117,7 +118,8 @@ _KEY = os.urandom(32)		# 設定Key
 _BlockSize = AES.block_size	# Block Size
 
 #padding
-_Pad = lambda s: s + (_BlockSize - len(s) % _BlockSize) * chr(_BlockSize - len(s) % _BlockSize)
+_Pad = lambda s: s + (_BlockSize - len(s) % _BlockSize) * 
+	chr(_BlockSize - len(s) % _BlockSize)
 _Unpad = lambda s : s[0:-ord(s[-1])]
 
 # 使用ECB加密
@@ -147,7 +149,8 @@ _KEY = os.urandom(32)		# 設定Key
 _BlockSize = AES.block_size	# Block Size
 
 #padding
-_Pad = lambda s: s + (_BlockSize - len(s) % _BlockSize) * chr(_BlockSize - len(s) % _BlockSize)
+_Pad = lambda s: s + (_BlockSize - len(s) % _BlockSize) * 
+	chr(_BlockSize - len(s) % _BlockSize)
 _Unpad = lambda s : s[0:-ord(s[-1])]
 
 # 使用CBC加密
@@ -178,7 +181,8 @@ _COUNTER = os.urandom(16)
 _BlockSize = AES.block_size # Block Size
 
 #padding
-_Pad = lambda s: s + (_BlockSize - len(s) % _BlockSize) * chr(_BlockSize - len(s) % _BlockSize)
+_Pad = lambda s: s + (_BlockSize - len(s) % _BlockSize) * 
+	chr(_BlockSize - len(s) % _BlockSize)
 _Unpad = lambda s : s[0:-ord(s[-1])]
 
 # 使用CTR加密
@@ -196,7 +200,15 @@ def aes_decrypt(data):
 \subsection{PyCrypto RSA-2048}
 {
 \begin{lstlisting}[language=Python]
-	
+# 使用RSA加密
+def rsa_encrypt(data):
+    encrypted = _PUBLICKEY.encrypt(_Pad(data), 16)
+    return encrypted
+
+# 使用RSA解密
+def rsa_decrypt(data):
+    decrypted = _KEY.decrypt(data)
+    return _Unpad(decrypted)	
 \end{lstlisting}
 }
 
@@ -222,7 +234,8 @@ def hashSHA512(data):
 {
 \begin{lstlisting}[language=Python]
 import os
-from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+from cryptography.hazmat.primitives.ciphers import Cipher,
+	 algorithms, modes
 from cryptography.hazmat.backends import default_backend
 
 backend = default_backend()
@@ -230,7 +243,8 @@ _KEY = os.urandom(32)	# 設定Key
 _BlockSize = 16	        # Block Size
 
 #padding
-_Pad = lambda s: s + (_BlockSize - len(s) % _BlockSize) * chr(_BlockSize - len(s) % _BlockSize)
+_Pad = lambda s: s + (_BlockSize - len(s) % _BlockSize) * 
+	chr(_BlockSize - len(s) % _BlockSize)
 _Unpad = lambda s : s[0:-ord(s[-1])]
 
 # 使用ECB加密
@@ -244,7 +258,7 @@ def aes_encrypt(data):
 def aes_decrypt(data):
     cipher = Cipher(algorithms.AES(_KEY), modes.ECB(), backend=backend)
     decryptor = cipher.decryptor()
-    plaintext = _Unpad(decryptor.update(data))  # + decryptor.finalize()
+    plaintext = _Unpad(decryptor.update(data))
     return plaintext
 \end{lstlisting}
 }
@@ -253,7 +267,8 @@ def aes_decrypt(data):
 {
 \begin{lstlisting}[language=Python]
 import os
-from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+from cryptography.hazmat.primitives.ciphers import Cipher, 
+	algorithms, modes
 from cryptography.hazmat.backends import default_backend
 
 backend = default_backend()
@@ -262,19 +277,22 @@ _KEY = os.urandom(32)	# 設定Key
 _BlockSize = 16	        # Block Size
 
 #padding
-_Pad = lambda s: s + (_BlockSize - len(s) % _BlockSize) * chr(_BlockSize - len(s) % _BlockSize)
+_Pad = lambda s: s + (_BlockSize - len(s) % _BlockSize) * 
+	chr(_BlockSize - len(s) % _BlockSize)
 _Unpad = lambda s : s[0:-ord(s[-1])]
 
 # 使用CBC加密
 def aes_encrypt(data):
-    cipher = Cipher(algorithms.AES(_KEY), modes.CBC(_IV), backend=backend)
+    cipher = Cipher(algorithms.AES(_KEY), modes.CBC(_IV), 
+    	backend=backend)
     encryptor = cipher.encryptor()
     ciphertext = encryptor.update(_Pad(data))
     return ciphertext
 
 # 使用CBC解密
 def aes_decrypt(data):
-    cipher = Cipher(algorithms.AES(_KEY), modes.CBC(_IV), backend=backend)
+    cipher = Cipher(algorithms.AES(_KEY), modes.CBC(_IV), 
+    	backend=backend)
     decryptor = cipher.decryptor()
     plaintext = _Unpad(decryptor.update(data))
     return plaintext
@@ -285,7 +303,8 @@ def aes_decrypt(data):
 {
 \begin{lstlisting}[language=Python]
 import os
-from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
+from cryptography.hazmat.primitives.ciphers import Cipher,
+	 algorithms, modes
 from cryptography.hazmat.backends import default_backend
 
 backend = default_backend()
@@ -294,19 +313,22 @@ _KEY = os.urandom(32)	# 設定Key
 _BlockSize = 16	        # Block Size
 
 #padding
-_Pad = lambda s: s + (_BlockSize - len(s) % _BlockSize) * chr(_BlockSize - len(s) % _BlockSize)
+_Pad = lambda s: s + (_BlockSize - len(s) % _BlockSize) * 
+	chr(_BlockSize - len(s) % _BlockSize)
 _Unpad = lambda s : s[0:-ord(s[-1])]
 
 # 使用CTR加密
 def aes_encrypt(data):
-    cipher = Cipher(algorithms.AES(_KEY), modes.CTR(_IV), backend=backend)
+    cipher = Cipher(algorithms.AES(_KEY), modes.CTR(_IV), 
+    	backend=backend)
     encryptor = cipher.encryptor()
     ciphertext = encryptor.update(_Pad(data))
     return ciphertext
 
 # 使用CTR解密
 def aes_decrypt(data):
-    cipher = Cipher(algorithms.AES(_KEY), modes.CTR(_IV), backend=backend)
+    cipher = Cipher(algorithms.AES(_KEY), modes.CTR(_IV), 
+    	backend=backend)
     decryptor = cipher.decryptor()
     plaintext = _Unpad(decryptor.update(data))
     return plaintext
@@ -316,7 +338,17 @@ def aes_decrypt(data):
 \subsection{Cryptography RSA-2048}
 {
 \begin{lstlisting}[language=Python]
-	
+def rsa_encrypt(data):
+    # ciphertext= ''
+    for text in data:
+        cipher = _PUBLICKEY.encrypt(
+        text,
+        padding.OAEP(
+            mgf=padding.MGF1(algorithm=hashes.SHA1()),
+            algorithm=hashes.SHA1(),
+            label=None
+            )
+        )
 \end{lstlisting}
 }
 
@@ -336,9 +368,9 @@ def hashSHA512(data):
 }
 
 \newpage % 新一頁
-\section{PyCrypto 與 Cryptography 速度的比較}
-利用Python隨機產生一個大小為512+7byte的字串檔案
-並且丟到每一個加解密演算法計算時間
+\section{PyCrypto 與 Cryptography 加密的執行速度}
+利用Python隨機產生一個大小為1MB+7byte的字串檔案
+並且丟到每一個加密演算法計算時間
 \subsection{隨機產生字串檔案}
 {
 \begin{lstlisting}[language=Python]
@@ -347,7 +379,8 @@ import random, string
 
 # 隨機產生大小為size的字串檔案
 def generateStringFile(size):
-    text = ''.join(random.choice(string.ascii_letters + string.digits) for x in range(size))
+    text = ''.join(random.choice(string.ascii_letters + 
+    	string.digits) for x in range(size))
     file = open('RandomString.txt', 'wb')
     file.write(text)
 \end{lstlisting}
@@ -374,9 +407,9 @@ print ('Time taken: ' + str(elapsed) + 'seconds.')
 \end{lstlisting}
 輸出的結果為
 \newline PyCrypto AES256 ECB
-Time taken: 8.11543488503seconds.
+Time taken: 0.00929403305054seconds.
 \newline Cryptography AES256 ECB
-Time taken: 2.48533296585seconds.
+Time taken: 0.00262188911438seconds.
 }
 
 \subsection{AES-256 CBC}
@@ -400,9 +433,9 @@ print ('Time taken: ' + str(elapsed) + 'seconds.')
 \end{lstlisting}
 輸出的結果為
 \newline PyCrypto AES256 CBC
-Time taken: 6.45398807526seconds.
+Time taken: 0.0101928710938seconds.
 \newline Cryptography AES256 CBC
-Time taken: 3.81276679039seconds.
+Time taken: 0.00265407562256seconds.
 }
 
 \subsection{AES-256 CTR}
@@ -426,17 +459,35 @@ print ('Time taken: ' + str(elapsed) + 'seconds.')
 \end{lstlisting}
 輸出的結果為
 \newline PyCrypto AES256 CTR
-Time taken: 21.1867408752seconds.
+Time taken: 0.0238711833954seconds.
 \newline Cryptography AES256 CTR
-Time taken: 2.08338999748seconds.
+Time taken: 0.000817060470581seconds.
 }
 
 \subsection{RSA-2048}
 {
 \begin{lstlisting}[language=Python]
-	
+# PyCrypo_RSA_2048
+print ('PyCrypo RSA2048')
+start = time.time()
+encrypt = PyCrypo_RSA_2048.rsa_encrypt(plaintext)
+end = time.time()
+elapsed = end - start
+print ('Time taken: ' + str(elapsed) + 'seconds.')
+
+# Cryptography_RSA_2048
+print ('Cryptography RSA2048')
+start = time.time()
+encrypt = Cryptography_RSA_2048.rsa_encrypt(plaintext)
+end = time.time()
+elapsed = end - start
+print ('Time taken: ' + str(elapsed) + 'seconds.')	
 \end{lstlisting}
 輸出的結果為
+\newline PyCrypo RSA2048
+Time taken: 103.83675909seconds.
+\newline Cryptography RSA2048
+Time taken: 87.8018479347seconds.
 }
 
 \subsection{SHA-512}
@@ -460,9 +511,58 @@ print ('Time taken: ' + str(elapsed) + 'seconds.')
 \end{lstlisting}
 輸出的結果為
 \newline PyCrypo SHA512
-Time taken: 2.17035508156seconds.
+Time taken: 0.0035879611969seconds.
 \newline Cryptography SHA512
-Time taken: 1.27641797066seconds.
+Time taken: 0.00237917900085seconds.
 }
+
+\newpage % 新一頁
+\section{比較PyCrypto 與 Cryptography 的加密執行速度}
+
+\subsection{隨機產生大小為1MB+7byte的字串檔案}
+{
+	\begin{frame}
+	\par
+	\bigskip
+	\begin{center}
+	\begin{tabular}{|c|c|c|c|c|c|} \hline
+	\textsc{} & ECB & CBC & CTR & RSA2048 & SHA512 \\ \hline
+	PyCrypto & 0.00929 & 0.01019 & 0.02387 & 103.83676 & 0.00359\\ \hline
+	Cryptography & 0.00262 & 0.00265 & 0.00081 & 60.44971 & 0.00238\\ \hline
+	\end{tabular}
+	\end{center}
+	\par
+	\bigskip
+	\end{frame}
+}
+
+\subsection{隨機產生大小為512MB+7byte的字串檔案}
+{
+	\begin{frame}
+	\par
+	\bigskip
+	\begin{center}
+	\begin{tabular}{|c|c|c|c|c|c|} \hline
+	\textsc{} & ECB & CBC & CTR & RSA2048 & SHA512 \\ \hline
+	PyCrypto & 5.21309 & 5.64221 & 13.40350 & --- & 1.96496\\ \hline
+	Cryptography & 1.22992 & 2.13249 & 1.34670 & --- & 1.24736\\ \hline
+	\end{tabular}
+	\end{center}
+	\par
+	\bigskip
+	\end{frame}
+}
+
+\section{結論}
+依照加密演算法來看 SHA512 > AES > RSA248。
+\newline 其中，SHA>AES我想應該是因為SHA不需考慮解密，所以演算法的效率就可以比AES來得高。
+\newline 而AES>RSA2048則是可以預期的結果，而且RSA在實務上也不會對字串作加密。
+\newline 另外，Cryptography速度也都比PyCrypto來得快。
+\newline
+\newline 以上內容以及程式碼可以參考我的github以及medium
+\newline
+\url{https://github.com/WillyWu0201/CryptorRandomFile}
+\newline
+\url{https://medium.com/@willywu/%E5%88%A9%E7%94%A8pip%E5%AE%89%E8%A3%9Dpython-package-dc3e82348c29}
 
 \end{document}
